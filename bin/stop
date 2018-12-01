@@ -1,0 +1,40 @@
+#!/bin/bash
+
+source "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/common.sh"
+
+function stop() {
+  local app_name="$1"
+
+  if [[ ! -d "apps/$app_name" ]]; then
+    {
+      echo "ERROR: Cannot find app: $app_name"
+    } >&2
+    return 2
+  fi
+
+  local directory="$STORAGE/$app_name"
+
+  if [[ ! -f $directory/pid ]]; then
+    {
+      echo "ERROR: $app_name does not seem to be started"
+    } >&2
+    return 3
+  fi
+
+  local pid=$(cat $directory/pid)
+
+  echo "Killing $pid"
+
+  kill $pid && echo "$pid is Dead" || echo "Could not kill $pid"
+
+ rm -f $directory/pid
+}
+
+if [[ ${BASH_SOURCE[0]} != $0 ]]; then
+  export -f stop
+else
+  stop "${@:-}"
+  exit $?
+fi
+
+# stop

@@ -1,0 +1,40 @@
+---
+spring:
+  profiles: dev
+
+management:
+  context-path: /admin
+
+---
+spring:
+  profiles: local
+
+server:
+  port: 8888
+
+---
+spring:
+  profiles: docker
+  cloud:
+    config:
+      server:
+        git:
+          uri: file:///configs
+
+---
+spring:
+  profiles: file-config
+  cloud:
+    config:
+      server:
+        git:
+          uri: file://${user.home}/workspace/spring-cloud-services/configs
+
+---
+spring:
+  profiles: github-config
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/mcarey-solstice/spring-cloud-config

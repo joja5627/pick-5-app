@@ -1,0 +1,40 @@
+---
+spring:
+  profile: dev
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+
+logging:
+  level:
+    com:
+      netflix:
+        eureka: OFF
+        discovery: OFF
+
+management:
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+    shutdown:
+      enabled: true
+  endpoints:
+    web:
+      base-path: /
+      # By default, only 'health' and 'info' are accessible via web
+      exposure:
+        include: '*'
+
+---
+spring:
+  profile: local
+
+server:
+  port: 8761
+
+---
+spring:
+  profile: docker

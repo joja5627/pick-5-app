@@ -1,0 +1,26 @@
+#!/bin/bash
+
+source "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/common.sh"
+
+function restart() {
+  local app_name="$1"
+
+  if [[ ! -d "apps/$app_name" ]]; then
+    {
+      echo "ERROR: Cannot find app: $app_name"
+    } >&2
+    return 2
+  fi
+
+  ./bin/stop $app_name 2>&1 >/dev/null || :
+  ./bin/start $app_name
+}
+
+if [[ ${BASH_SOURCE[0]} != $0 ]]; then
+  export -f restart
+else
+  restart "${@:-}"
+  exit $?
+fi
+
+# restart

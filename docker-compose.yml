@@ -1,0 +1,90 @@
+version: '2'
+services:
+  
+   # app:
+  #   restart: always
+  #   build: ./pick-5-backend/
+  #   working_dir: /app
+  #   volumes:
+  #     - ./app:/app
+  #     - ~/.m2:/root/.m2
+  #   expose:
+  #     - "8080"
+  #   command: mvn clean spring-boot:run
+  #   depends_on:
+  #     - nginx
+  #     - mongodb
+  mongodb:
+    container_name: pick-5-mongo
+    image: mongo:3.6
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    volumes:
+      - ./data/db:/data/db
+    ports:
+        - 27017:27017
+    command: mongod --smallfiles  # --quiet --logpath=/dev/null
+  config-server:
+    image: gradle:latest
+    working_dir: /srv
+    command: ./gradlew bootRun
+    volumes:
+      - ./apps/config-server:/srv
+      - ./configs:/configs
+      - ./storage/config-server.gradle:/home/gradle/.gradle
+    ports:
+      - "8888:8080"
+    environment:
+      - "GRADLE_HOME=/home/gradle/.gradle"
+      - "SPRING_PROFILES_ACTIVE=docker,dev,file-config"
+
+  service-registry:
+    image: gradle:latest
+    working_dir: /srv
+    command: ./gradlew bootRun
+    volumes:
+      - ./apps/service-registry:/srv
+      - ./storage/service-registry.gradle:/home/gradle/.gradle
+    ports:
+      - "8761:8080"
+    environment:
+      - "GRADLE_HOME=/home/gradle/.gradle"
+      - "SPRING_PROFILES_ACTIVE=docker,dev"
+      
+  pick-5-backend:
+    image: gradle:jdk10
+    working_dir: /srv
+    command: ./gradlew bootRun
+    volumes:
+      - ./apps/pick-5-backend:/srv
+      - ./storage/pick-5-backend.gradle:/home/gradle/.gradle
+    ports:
+      - "8090:8080"
+    environment:
+      - "GRADLE_HOME=/home/gradle/.gradle"
+      - "SPRING_PROFILES_ACTIVE=docker,dev"
+      - "MONGODB_URI=mongodb://mongo_db:27017"
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - '80:80'
+      - 443:443
+    networks:
+      default:
+        aliases:
+          
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+  # nginx:
+  #  container_name: pick-5-nginx
+  #  image: nginx:1.13
+  #  restart: always
+  #  ports:
+  #  - 80:80
+  #  - 443:443
+  #  volumes:
+  #  - ./nginx/conf.d:/etc/nginx/conf.d
+
+ 

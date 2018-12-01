@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+source "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/common.sh"
+
+function check_dependencies() {
+  while read dep url; do
+    if hash $dep; then
+      # Nothing, the dependency exists
+      :
+    else
+      {
+        echo "Missing required dependency: $dep"
+        echo "To install, please visit: $url"
+      } >&2
+
+      return 1
+    fi
+  done < "$DEPENDENCIES_FILE"
+}
+
+function init() {
+  check_dependencies
+}
+
+if [[ ${BASH_SOURCE[0]} != $0 ]]; then
+  export -f check_dependencies \
+            init
+else
+  init "${@:-}"
+  exit $?
+fi
+
+# init

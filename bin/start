@@ -1,0 +1,42 @@
+#!/bin/bash
+
+source "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/common.sh"
+
+function start() {
+  local app_name="$1"
+
+  if [[ ! -d "apps/$app_name" ]]; then
+    {
+      echo "ERROR: Cannot find app: $app_name"
+    } >&2
+    return 2
+  fi
+
+  local directory="$STORAGE/$app_name"
+  local pid
+
+  if [[ -f $directory/pid ]]; then
+    {
+      echo "ERROR: $app_name seems to be already running with pid $( cat $directory/pid )"
+    } >&2
+    return 3
+  fi
+
+  mkdir -p $directory
+
+  cd apps/$app_name
+  ./gradlew bootRun >$directory/stdout 2>$directory/stderr &
+  pid=$!
+  echo $pid >$directory/pid
+
+  echo "Started $app_name with pid $pid"
+}
+
+if [[ ${BASH_SOURCE[0]} != $0 ]]; then
+  export -f start
+else
+  start "${@:-}"
+  exit $?
+fi
+
+# start
