@@ -1,9 +1,6 @@
-<<<<<<< HEAD
-pick 5 app
-=======
 # Docker Compose with Spring Boot, MongoDB, NGINX
 
-## What you'll build
+## Description
 - A simple Spring Boot application  with MongoDB and NGINX running inside Docker containers 
 
 ## What you'll need
@@ -20,4 +17,3 @@ pick 5 app
 ## Run
 - Run command `docker-compose up`
 - Access to http://localhost/
->>>>>>> Initial Commit
