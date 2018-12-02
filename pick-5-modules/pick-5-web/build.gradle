@@ -1,0 +1,8 @@
+apply plugin: 'application'
+
+mainClassName = 'io.pick5.web.main.Application'
+
+dependencies {
+    implementation'org.springframework.boot:spring-boot-starter-webflux'
+    // org.springframework.web.reactive.config
+}
