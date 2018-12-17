@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import io.pick5.web.main.Application;
+import io.pick5.web.application.Application;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

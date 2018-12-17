@@ -1,8 +1,38 @@
 apply plugin: 'application'
 
-mainClassName = 'io.pick5.web.main.Application'
+mainClassName = 'io.pick5.web.application.Application'
+/* 
+	TODO:
+		- request to bovada 
+
+
+*/
+
+
+// $ curl --header "Content-Type: application/json" --request POST --data '{"firstName": "John","lastName": "Scott","age": 30}' http://localhost:8090/customer
+// {"id": "5aec1debfa656c0b38b952b4","firstName": "John","lastName": "Scott","age": 30,"accounts": null}
+// $ curl --header "Content-Type: application/json" --request POST --data '{"number": "1234567890","amount": 5000,"customerId": "5aec1debfa656c0b38b952b4"}' http://localhost:8090/account
+// {"id": "5aec1e86fa656c11d4c655fb","number": "1234567892","customerId": "5aec1debfa656c0b38b952b4","amount": 5000}
+// $ curl --header "Content-Type: application/json" --request POST --data '{"number": "1234567891","amount": 12000,"customerId": "5aec1debfa656c0b38b952b4"}' http://localhost:8090/account
+// {"id": "5aec1e91fa656c11d4c655fc","number": "1234567892","customerId": "5aec1debfa656c0b38b952b4","amount": 12000}
+// $ curl --header "Content-Type: application/json" --request POST --data '{"number": "1234567892","amount": 2000,"customerId": "5aec1debfa656c0b38b952b4"}' http://localhost:8090/account
+// {"id": "5aec1e99fa656c11d4c655fd","number": "1234567892","customerId": "5aec1debfa656c0b38b952b4","amount": 2000}
+// /api/v1/
+// /api
+// /api/v1/lines/**
+// curl --header "Content-Type: application/json" --request GET http://localhost:8080/api/v1/lines/**
+
+
+
+
 
 dependencies {
-    implementation'org.springframework.boot:spring-boot-starter-webflux'
-    // org.springframework.web.reactive.config
+
+	implementation 'io.projectreactor:reactor-test:3.2.3.RELEASE'
+	implementation 'com.google.code.gson:gson:2.8.5'
+   	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+ 
 }

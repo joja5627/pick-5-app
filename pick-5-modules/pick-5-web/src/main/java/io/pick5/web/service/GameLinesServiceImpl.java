@@ -1,69 +1,53 @@
 package io.pick5.web.service;
 
-import org.springframework.http.MediaType;
-import org.springframework.web.reactive.function.client.WebClient;
+import java.time.LocalDateTime;
+import java.util.Map;
+import java.util.UUID;
 
-import io.pick5.web.exception.GetWeeklyLinesException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+
+import io.pick5.web.domain.BovadaResponse;
 import reactor.core.publisher.Mono;
 
-public class GameLinesServiceImpl implements GameLinesService   {
-	 	
-		WebClient webClient;
-		
-	    public GameLinesServiceImpl(){
-	        this.webClient = WebClient.create();
-	    }
-	    @Override
-		public Mono<String> getBookmakerLines(final Mono<String> urlMono)  {
-	        return urlMono
-	        		.flatMap(url -> webClient
-	                .get()
-	                .uri(url)
-	                .accept(MediaType.APPLICATION_JSON)
-	                .exchange()
-	                .flatMap(clientResponse -> clientResponse.bodyToMono(String.class)));
-	    }
-	    @Override
-		public Mono<String> getBookmakerLines(String endpoint) {
-			// TODO Auto-generated method stub
-			return null;
+@Service
+public class GameLinesServiceImpl implements GameLinesService {
+
+	private final Gson gson;
+
+	@Autowired
+	private AsyncHttpClient client;
+
+	public GameLinesServiceImpl(AsyncHttpClient client, Gson gson) {
+		this.client = client;
+		this.gson = gson;
+	}
+
+	@Override
+	public Mono<BovadaResponse> getBookmakerLines(String url, Map<String, String> queryParams) {
+		return client.asyncGet(url, String.class, queryParams).transform(this::bovadaResponseBuilder);
+
+	}
+
+	private Mono<BovadaResponse> bovadaResponseBuilder(Mono<String> httpResponse) {
+		return httpResponse.flatMap(responseBody -> Mono.just(BovadaResponse.builder().id(UUID.randomUUID().toString())
+				.response(responseBody).timeStamp(LocalDateTime.now()).build()));
+
+	}
+
+	private <T> Mono<T> getJsonFromRequest(String body, Class<T> genericClassDeclaration) {
+		try {
+			return Mono.just(parseJson(body, genericClassDeclaration));
+		} catch (JsonSyntaxException | IllegalStateException e) {
+			return Mono.error(e);
 		}
-//        return location
-//                .transform(this::buildUrl)
-//                .transform(this::get)
-//                .onErrorResume(throwable -> Mono.error(new GetSunriseSunsetException(ERROR_GETTING_DATA, throwable)))
-//                .transform(this::createResult);
-//	    @Override
-//	    public Mono<String> getBookmakerLines(final Mono<String> endpoint) {
-//		   
-//	        return webClient
-//	                	.get()
-//	                	.uri(this::get)
-//	                	.accept(MediaType.ALL)
-//	                	.exchange()
-//	                	.flatMap(clientResponse -> clientResponse.bodyToMono(String.class));
-//	    }
-//	    @Override
-//	    public Mono<String> getBookmakerLines(final String endpoint) {
-//		   
-//	        return webClient
-//	                	.get()
-//	                	.uri(endpoint)
-//	                	.accept(MediaType.ALL)
-//	                	.exchange()
-//	                	.flatMap(clientResponse -> clientResponse.bodyToMono(String.class));
-//	    }
-//	    Mono<String> createResult(final Mono<String> bookmakerLines) {
-//	    	
-//	        return bookmakerLines.flatMap(geoTimesResponse -> {
-//	            if ((geoTimesResponse.getStatus() != null) && (geoTimesResponse.getStatus().equals(STATUS_OK))) {
-//	                return Mono.just(new SunriseSunset(geoTimesResponse.getResults().getSunrise(),
-//	                        geoTimesResponse.getResults().getSunset()));
-//	            } else {
-//	                return Mono.error(new GetSunriseSunsetException(SUNRISE_RESULT_NOT_OK));
-//	            }
-//	        });
-//	    }
-		
-	  
+	}
+
+	private <T> T parseJson(String body, Class<T> genericClassDeclaration) {
+		return gson.fromJson(body, genericClassDeclaration);
+	}
+
 }

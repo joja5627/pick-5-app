@@ -7,6 +7,7 @@ buildscript {
 
 	repositories {
 		maven { url 'https://plugins.gradle.org/m2/' }
+        maven { url "https://repo.spring.io/libs-milestone" }
 	}
 
 	dependencies {
@@ -14,27 +15,39 @@ buildscript {
 	}
 }
 
+
 subprojects {
     apply plugin: 'java'
     apply plugin: 'eclipse'
 	apply plugin: 'io.spring.dependency-management'
+    
 
 	group = 'io.pick5.app'
 	sourceCompatibility = 1.10
 
 	repositories {
 		mavenCentral()
+	    maven { url 'https://projectlombok.org/edge-releases' }
 	}
     
 
     dependencies{
-        implementation 'org.springframework.boot:spring-boot-starter'
-        testImplementation('org.junit.jupiter:junit-jupiter-api:5.2.0')
+	  
+        implementation('org.springframework.boot:spring-boot-starter')
+       
         testCompile('org.junit.jupiter:junit-jupiter-params:5.2.0')
         testRuntime('org.junit.jupiter:junit-jupiter-engine:5.2.0')
         testCompile "org.mockito:mockito-core:2.+"
         testCompile('org.mockito:mockito-junit-jupiter:2.18.3')
         testCompile('org.springframework.boot:spring-boot-starter-test')
+
+        compileOnly 'org.projectlombok:lombok:1.18.4'
+        testCompileOnly 'org.projectlombok:lombok:1.18.4'
+        annotationProcessor 'org.projectlombok:lombok:1.18.4'
+
+
+        testImplementation('org.junit.jupiter:junit-jupiter-api:5.2.0','org.mock-server:mockserver-netty:3.10.8',
+        'org.mock-server:mockserver-client-java:3.10.8')
     }
 
     test {
