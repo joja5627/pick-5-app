@@ -1,6 +1,27 @@
 version: "3"
+#remove all images
+#docker rm $(docker ps -aq)
+
+#remove all images
+#docker rmi $(docker images -q)
 
 services:
+
+  # postgres:
+  #   hostname: postgres
+  #   image: postgres:9.6-alpine
+  #   restart: always
+  #   command: postgres -c config_file=/postgresql.conf
+  #   volumes:
+  #     - ./postgresql.conf:/postgresql.conf
+  #     - ./postgres-data:/var/lib/postgresql/data
+  #   ports:
+  #     - 5432:5432
+  #   environment:
+  #     - POSTGRES_DB=pick-5-postgres
+  #   networks:
+  #     - pick-5-network
+
   mongo:
     image: mongo:3.4
     hostname: mongo
@@ -24,6 +45,64 @@ services:
       - redisdb
     networks:
       - pick-5-network
+
+volumes:
+  mongodb:
+  redisdb:
+  # postgres:
+
+networks:
+  pick-5-network:
+  # zuul:
+  #   build: ../zuul
+  #   container_name: zuul
+  #   hostname: zuul
+  #   restart: always
+  #   ports:
+  #     - "9092:9092"
+  #   volumes:
+  #     - ./zuul/config:/tmp/config
+  #     - ./zuul/logs:/tmp/logs
+  #   depends_on:
+  #     # - auth-server
+  #   networks:
+  #     - pick-5-network
+  # auth-server:
+  #   build: ../auth-server
+  #   container_name: auth-server
+  #   hostname: auth-server
+  #   restart: always
+  #   ports:
+  #     - "9999:9999"
+  #   volumes:
+  #     - ./auth-server/config:/tmp/config
+  #     - ./auth-server/logs:/tmp/logs
+  #   depends_on:
+  #     - eureka
+  #   networks:
+  #     - app_net
+  # mysql:
+  #   container_name: mysql-ms
+  #   hostname: mysql
+  #   image: mysql:5.7.19
+  #   ports:
+  #     - "3306:3306"
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: password
+  #   volumes:
+  #     - ./mysql/scripts:/docker-entrypoint-initdb.d
+  #     - ./mysql/data:/var/lib/mysql
+  #   command: [--ssl=0]
+  #   healthcheck:
+  #     test: ["CMD", "mysqladmin" ,"ping", "-uroot", "-ppassword"]
+  #     interval: 10s
+  #     timeout: 60s
+  #     retries: 5
+  #   networks:
+  #     - pick-5-network
+
+
+  
 
   # x-team-api:
   #   build:
@@ -50,19 +129,6 @@ services:
   #     - x-team-network
   #   depends_on:
   #     - "x-team-api"
-
-volumes:
-  mongodb:
-  redisdb:
-
-networks:
-  pick-5-network:
-
-
-
-
-
-
 # version: '2'
 # services:
   

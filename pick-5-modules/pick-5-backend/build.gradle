@@ -1,7 +1,0 @@
-apply plugin: 'application'
-
-mainClassName = 'sample.main'
-
-dependencies {
-    compile project(':pick-5-web')
-}
