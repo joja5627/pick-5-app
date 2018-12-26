@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+source "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/common.sh"
+
+function add-dependency() {
+  local dep=$1
+  local url=$2
+
+  if [[ -z $dep || -z $url ]]; then
+    {
+      echo "Usage: add-dependency DEP URL"
+      echo "  DEP (string) The dependency executable name"
+      echo "  URL (string) A URL to installation instructions for the executable"
+      echo ""
+    } >&2
+
+    return 0
+  fi
+
+  if grep -q "$dep" "$DEPENDENCIES_FILE" 2>&1 >/dev/null; then
+    info "Dependency $dep already exists"
+  else
+    echo "$dep $url" >> "$DEPENDENCIES_FILE"
+  fi
+}
+
+if [[ ${BASH_SOURCE[0]} != $0 ]]; then
+  export -f add-dependency
+else
+  add-dependency "${@:-}"
+  exit $?
+fi
+
+# add-dependency

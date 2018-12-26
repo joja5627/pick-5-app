@@ -1,16 +1,3 @@
-###
-# Files to ignore in Version Control
-##
-
-##
-# Project Specific
-##
-
-##
-# IDE files
-##
-# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
-# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff
 .idea/**/workspace.xml

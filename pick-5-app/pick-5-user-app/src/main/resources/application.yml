@@ -1,0 +1,31 @@
+  
+server:
+
+  # TODO: make port random 
+  
+  port: 2222
+  
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+
+logging:
+  level:
+    org.springframework.web: INFO
+
+routes:
+    base:
+      version: 
+          "/api/v1"
+    save:
+      "/user/save"
+    get:
+      "/user/get/{id}"
+    get_all:
+       "/user/find_all"
+    update:
+      "/update/{id}"
+    delete:
+      "/delete/{id}" 

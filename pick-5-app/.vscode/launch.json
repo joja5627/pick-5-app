@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-AccountApplication<pick-5-account>",
+            "request": "launch",
+            "mainClass": "io.pick5.account.application.AccountApplication",
+            "projectName": "pick-5-account"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Application<pick-5-web>",
+            "request": "launch",
+            "mainClass": "io.pick5.web.application.Application",
+            "projectName": "pick-5-web"
+        }
+    ]
+}
