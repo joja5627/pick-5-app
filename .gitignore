@@ -180,3 +180,13 @@ target/
 /dist/
 /nbdist/
 /.nb-gradle/
+
+.idea/
+node_modules/
+*.DS_Store
+server*.log
+coverage/
+*.log
+.npmrc
+.aws*
+dist/
