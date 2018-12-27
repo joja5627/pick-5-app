@@ -1,32 +1,11 @@
 package io.pick5.auth;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
-import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
-import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration;
-import org.springframework.boot.autoconfigure.security.reactive.ReactiveUserDetailsServiceAutoConfiguration;
-import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
-import org.springframework.context.annotation.ComponentScan;
 
 import io.pick5.module.asyncHttpClient.EnableAsyncHttpClientModule;
 
-
-
-@EnableAutoConfiguration(exclude = {
-    ReactiveUserDetailsServiceAutoConfiguration.class,
-    	ReactiveSecurityAutoConfiguration.class,
-    		UserDetailsServiceAutoConfiguration.class,
-    			MongoAutoConfiguration.class,
-    				MongoDataAutoConfiguration.class})
-
-//@AutoConfigureAfter(EmbeddedMongoAutoConfiguration.class)
-
-
-
 @EnableAsyncHttpClientModule
-@ComponentScan(basePackages = {"io.pick5.auth"})
 @SpringBootApplication
 public class AuthenticationApplication {
 	
@@ -65,7 +44,7 @@ public class AuthenticationApplication {
      **/
 //    @Bean
 //    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-//
+
 //        http.authorizeExchange()
 //                    .pathMatchers("/login", "/")
 //                    .authenticated()
@@ -76,7 +55,7 @@ public class AuthenticationApplication {
 //                    .authenticated()
 //                .and()
 //                    .addFilterAt(bearerAuthenticationFilter(), SecurityWebFiltersOrder.AUTHENTICATION);
-//
+
 //        return http.build();
 //    }
 

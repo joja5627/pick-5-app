@@ -1,0 +1,48 @@
+{
+    "run": {
+        "default": "",
+        "items": [
+            {
+                "name": "pick-5-web",
+                "projectName": "pick-5-web",
+                "workingDirectory": "/Users/joejackson/dev/pick-5-app/pick-5-modules/pick-5-web",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            },
+            {
+                "name": "pick-5-account",
+                "projectName": "pick-5-account",
+                "workingDirectory": "/Users/joejackson/dev/pick-5-app/pick-5-modules/pick-5-account",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            }
+        ]
+    },
+    "debug": {
+        "default": "",
+        "items": [
+            {
+                "name": "pick-5-web",
+                "projectName": "pick-5-web",
+                "workingDirectory": "/Users/joejackson/dev/pick-5-app/pick-5-modules/pick-5-web",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            },
+            {
+                "name": "pick-5-account",
+                "projectName": "pick-5-account",
+                "workingDirectory": "/Users/joejackson/dev/pick-5-app/pick-5-modules/pick-5-account",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            }
+        ]
+    }
+}

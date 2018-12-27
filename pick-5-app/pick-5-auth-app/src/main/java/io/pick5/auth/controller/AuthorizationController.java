@@ -33,7 +33,7 @@ public class AuthorizationController {
 
     @GetMapping("/login")
     public Flux<String> login() {
-    	return Flux.just("register");
+    	return Flux.just("login");
     }
 
     @GetMapping("/api/private")

@@ -1,0 +1,17 @@
+apply plugin: 'application'
+apply plugin: 'java'
+
+mainClassName = 'io.pick5.user.UserApplication'
+
+dependencies {
+    compile project(':pick-5-modules')
+    testCompile project(':pick-5-modules').sourceSets.test.output
+
+    implementation('org.springframework.boot:spring-boot-starter-data-mongodb-reactive')
+}
+bootJar {
+    enabled = false
+}
+jar {
+    enabled = true
+}

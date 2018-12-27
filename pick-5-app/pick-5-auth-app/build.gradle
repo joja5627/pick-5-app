@@ -9,12 +9,5 @@ mainClassName = 'io.pick5.auth.AuthenticationApplication'
 
 
 dependencies {
-  
-    compile project(':pick-5-user-app')
-    compile project(':pick-5-modules')
-    
-  	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
-   
- 
+      compile project(':pick-5-modules')
 }
