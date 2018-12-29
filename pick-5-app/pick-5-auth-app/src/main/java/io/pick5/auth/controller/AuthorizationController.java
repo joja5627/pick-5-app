@@ -2,12 +2,9 @@
 package io.pick5.auth.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-import reactor.core.publisher.Flux;
 
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -22,37 +19,37 @@ public class AuthorizationController {
 //        return messageService.getDefaultMessage();
 //    }
 	
-    @GetMapping("/register")
-    public Flux<String> register() {
-    	
-    	//PUT to User Service
-    	
-    	return Flux.just("register");
-        //return messageService.getDefaultMessage();
-    }
+//    @GetMapping("/register")
+//    public Flux<String> register() {
+//    	
+//    	//PUT to User Service
+//    	
+//    	return Flux.just("register");
+//        //return messageService.getDefaultMessage();
+//    }
 
-    @GetMapping("/login")
-    public Flux<String> login() {
-    	return Flux.just("login");
-    }
+//    @GetMapping("/login")
+//    public Flux<String> login() {
+//    	return Flux.just("login");
+//    }
 
-    @GetMapping("/api/private")
-    @PreAuthorize("hasRole('USER')")
-    public Flux<String> privateMessage() {
-    	return Flux.just("register");
-    }
-
-   
-    @GetMapping("/api/admin")
-    @PreAuthorize("hasRole('ADMIN')")
-    public Flux<String> privateMessageAdmin() {
-    	return Flux.just("register");
-    }
+//    @GetMapping("/api/private")
+////    @PreAuthorize("hasRole('USER')")
+//    public Flux<String> privateMessage() {
+//    	return Flux.just("register");
+//    }
 
    
-    @GetMapping("/api/guest")
-    @PreAuthorize("hasRole('GUEST')")
-    public Flux<String> privateMessageGuest() {
-    	return Flux.just("register");
-    }
+//    @GetMapping("/api/admin")
+////    @PreAuthorize("hasRole('ADMIN')")
+//    public Flux<String> privateMessageAdmin() {
+//    	return Flux.just("register");
+//    }
+
+   
+//    @GetMapping("/api/guest")
+////    @PreAuthorize("hasRole('GUEST')")
+//    public Flux<String> privateMessageGuest() {
+//    	return Flux.just("register");
+//    }
 }

@@ -51,13 +51,7 @@ subprojects {
         testCompileOnly 'org.projectlombok:lombok:1.18.4'
         annotationProcessor 'org.projectlombok:lombok:1.18.4'
 	  
-        implementation(
-            'org.springframework.boot:spring-boot-starter',
-                'org.springframework.boot:spring-boot-starter-security',
- 	                'org.springframework.boot:spring-boot-starter-webflux',
-                        'org.springframework.security:spring-security-core',
-                            'org.springframework.security:spring-security-config',
-                                'org.springframework.security:spring-security-web')
+        implementation( 'org.springframework.boot:spring-boot-starter' )
 
         testImplementation(
             'io.projectreactor:reactor-test:3.2.3.RELEASE',

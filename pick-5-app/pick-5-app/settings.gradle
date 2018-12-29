@@ -1,7 +1,0 @@
-rootProject.name = 'io-pick-5-modules'
-
-include ':pick-5-modules'
-include ':pick-5-auth-app'
-include ':pick-5-token-app'
-include ':pick-5-user-app'
-include ':pick-5-web-app'

@@ -3,9 +3,7 @@ package io.pick5.auth;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import io.pick5.module.asyncHttpClient.EnableAsyncHttpClientModule;
-
-@EnableAsyncHttpClientModule
+//@EnableAsyncHttpClientModule
 @SpringBootApplication
 public class AuthenticationApplication {
 	
@@ -42,22 +40,7 @@ public class AuthenticationApplication {
      * @return SecurityWebFilterChain A filter chain for web exchanges that will
      * provide security
      **/
-//    @Bean
-//    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
 
-//        http.authorizeExchange()
-//                    .pathMatchers("/login", "/")
-//                    .authenticated()
-//                .and()
-//                    .addFilterAt(basicAuthenticationFilter(), SecurityWebFiltersOrder.HTTP_BASIC)
-//                       .authorizeExchange()
-//                    .pathMatchers("/api/**")
-//                    .authenticated()
-//                .and()
-//                    .addFilterAt(bearerAuthenticationFilter(), SecurityWebFiltersOrder.AUTHENTICATION);
-
-//        return http.build();
-//    }
 
     /**
      * Use the already implemented logic in  AuthenticationWebFilter and set a custom
