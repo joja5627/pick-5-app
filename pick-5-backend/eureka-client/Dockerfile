@@ -1,0 +1,8 @@
+FROM openjdk:10-jre-slim
+VOLUME /tmp
+ARG JAR_FILE
+COPY ./build/libs/*.jar app.jar
+ENTRYPOINT ["java", "-jar", "/app.jar", "-Xdebug -Xrunjdwp:server=y,transport=dt_socket,suspend=n"]
+# FROM alpine:3.2
+# RUN apk --update add openjdk7-jre
+# CMD ["/usr/bin/java", "-version"]

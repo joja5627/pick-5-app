@@ -1,0 +1,19 @@
+apply plugin: 'application'
+apply plugin: 'java'
+
+mainClassName = 'io.pick5.user.UserApplication'
+
+dependencies {
+    compile project(':modules')
+    testCompile project(':modules').sourceSets.test.output
+
+    implementation('org.springframework.boot:spring-boot-starter-webflux',
+      					'org.springframework.security:spring-security-core',
+      						'org.springframework.boot:spring-boot-starter-data-mongodb-reactive')
+}
+bootJar {
+    enabled = false
+}
+jar {
+    enabled = true
+}

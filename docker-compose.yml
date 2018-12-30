@@ -1,11 +1,70 @@
-version: "3"
+version: '3'
 #remove all images
 #docker rm $(docker ps -aq)
-
-#remove all images
-#docker rmi $(docker images -q)
-
+#docker stop $(docker ps -aq)
+#docker rm $(docker ps -aq)
+#docker system prune -a
+#docker-compose build
 services:
+  mongo:
+    image: mongo:3.4
+    hostname: mongo
+    command: []
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb:/data/db
+
+  api-gateway:
+    build: ./pick-5-backend/api-gateway
+    image: api-gateway
+    # depends_on:
+    #  - eureka-server
+    ports:
+      - "8080:8080"
+
+  # eureka-server:
+  #   build: ./pick-5-backend/eureka-server
+  #   image: eureka-server
+  #   ports:
+  #     - "8761:8761"
+
+  authentication-app:
+    build: ./pick-5-backend/authentication-app
+    image: authentication-app
+    # depends_on:
+    #  - eureka-server
+    # deploy:
+    #   mode: replicated
+    #   replicas: 1
+    ports:
+      - "8081:8081"
+
+  backend-service:
+    build: ./pick-5-backend/backend-service
+    image: backend-service
+    # depends_on:
+    #  - eureka-server
+    # deploy:
+    #   mode: replicated
+    #   replicas: 1
+    ports:
+      - "8082:8082"
+volumes:
+  mongodb:
+
+
+  # eureka-client:
+  #   build: ./pick-5-backend/eureka-client
+  #   image: eureka-client
+  #   depends_on:
+  #    - eureka-server
+  #   deploy:
+  #     mode: replicated
+  #     replicas: 1
+
+
+  
 
   # postgres:
   #   hostname: postgres
@@ -22,37 +81,36 @@ services:
   #   networks:
   #     - pick-5-network
 
-  mongo:
-    image: mongo:3.4
-    hostname: mongo
-    command: []
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongodb:/data/db
-    networks:
-      - pick-5-network
-    depends_on:
-      - "redis"
+#   mongo:
+#     image: mongo:3.4
+#     hostname: mongo
+#     command: []
+#     ports:
+#       - "27017:27017"
+#     volumes:
+#       - mongodb:/data/db
+#     networks:
+#       - pick-5-network
+#     depends_on:
+#       - "redis"
 
-  redis:
-    image: redis:4.0.5-alpine
-    hostname: redis
-    command: ["redis-server", "--appendonly", "yes"]
-    ports:
-      - "6379:6379"
-    volumes:
-      - redisdb
-    networks:
-      - pick-5-network
+#   redis:
+#     image: redis:4.0.5-alpine
+#     hostname: redis
+#     command: ["redis-server", "--appendonly", "yes"]
+#     ports:
+#       - "6379:6379"
+#     volumes:
+#       - redisdb
+#     networks:
+#       - pick-5-network
 
-volumes:
-  mongodb:
-  redisdb:
-  # postgres:
 
-networks:
-  pick-5-network:
+#   redisdb:
+#   # postgres:
+
+# networks:
+#   pick-5-network:
   # zuul:
   #   build: ../zuul
   #   container_name: zuul

@@ -1,0 +1,12 @@
+apply plugin: 'application'
+apply plugin: 'java'
+
+mainClassName = 'io.pick5.eureka.EurekaServerApplication'
+
+dependencies {
+    compile('javax.xml.bind:jaxb-api:2.3.0')
+    compile('javax.activation:activation:1.1')
+    compile('org.glassfish.jaxb:jaxb-runtime:2.3.0')
+    implementation('org.springframework.cloud:spring-cloud-starter-netflix-eureka-server')
+    implementation "org.springframework.boot:spring-boot-starter-actuator"
+}

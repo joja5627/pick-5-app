@@ -1,0 +1,28 @@
+apply plugin: 'application'
+apply plugin: 'java'
+
+mainClassName = 'shuaicj.example.security.gateway.Application'
+
+dependencies {
+
+	compile project(':modules')
+    
+    compile('javax.xml.bind:jaxb-api:2.3.0')
+    compile('javax.activation:activation:1.1')
+    compile('org.glassfish.jaxb:jaxb-runtime:2.3.0')
+
+    implementation('org.springframework.cloud:spring-cloud-starter-netflix-zuul')
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    implementation "org.springframework.boot:spring-boot-starter-actuator"
+
+
+     implementation(
+      				'org.springframework.boot:spring-boot-starter-security',
+      					 'org.springframework.security:spring-security-web',
+      						'org.springframework.security:spring-security-core',
+      							'org.springframework.security:spring-security-config')
+
+      
+
+}
