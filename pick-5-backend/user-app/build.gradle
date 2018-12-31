@@ -4,16 +4,15 @@ apply plugin: 'java'
 mainClassName = 'io.pick5.user.UserApplication'
 
 dependencies {
-    compile project(':modules')
-    testCompile project(':modules').sourceSets.test.output
+    implementation project(':modules')
+    // compile "org.springframework.boot:spring-boot-starter"
+	// compile "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client"
+	// testCompile "org.springframework.boot:spring-boot-starter-test"
+
 
     implementation('org.springframework.boot:spring-boot-starter-webflux',
-      					'org.springframework.security:spring-security-core',
-      						'org.springframework.boot:spring-boot-starter-data-mongodb-reactive')
-}
-bootJar {
-    enabled = false
-}
-jar {
-    enabled = true
+      		                'org.springframework.security:spring-security-core',
+      		                    'org.springframework.boot:spring-boot-starter-data-mongodb-reactive')
+    
+    
 }

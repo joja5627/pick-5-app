@@ -1,11 +1,9 @@
 rootProject.name = 'io-pick-5-modules'
-
 include ':modules'
 include ':authentication-app'
 include ':user-app'
-include ':api-gateway'
-
-// include ':eureka-server'
+include ':zuul-server'  
+include ':eureka-server'
 // include ':token-app'
 // include ':user-app'
 // include ':web-app'

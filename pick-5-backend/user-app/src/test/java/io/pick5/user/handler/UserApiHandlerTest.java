@@ -17,9 +17,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
-import io.pick5.domain.user.UserEntity;
 import io.pick5.tags.IntegrationTest;
 import io.pick5.test.utils.HandlersHelper;
+import io.pick5.user.domain.UserEntity;
 import reactor.core.publisher.Mono;
 
 @IntegrationTest
@@ -67,9 +67,15 @@ public class UserApiHandlerTest {
 	
 	private final UserEntity createUserEntity(String id, String userName, String email) {
 		
-		return UserEntity.builder()
-				.id(id).username(userName)
-				.email(email).active(true).build();
+		UserEntity user = new UserEntity();
+		
+		user.setId(id);
+		user.setEmail(email);
+		user.setUsername(userName);
+		user.setActive(true);
+		
+		
+		return user;
 		
 	}
 	@SuppressWarnings("unchecked")

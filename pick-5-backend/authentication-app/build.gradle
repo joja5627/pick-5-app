@@ -11,6 +11,12 @@ mainClassName = 'shuaicj.example.security.auth.Application'
 dependencies {
     implementation project(':modules')
 
+    // compile('org.springframework.boot:spring-boot-starter-actuator')
+    // compile "org.springframework.boot:spring-boot-starter"
+	// compile "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client"
+	// testCompile "org.springframework.boot:spring-boot-starter-test"
+
+
     implementation("org.springframework.boot:spring-boot-starter-actuator",
                         "org.springframework.boot:spring-boot-starter-web",
                              "org.springframework.boot:spring-boot-devtools",

@@ -3,14 +3,21 @@ package io.pick5.user.domain;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import io.pick5.domain.user.User;
-import lombok.Getter;
-import lombok.Setter;
+import io.pick5.domain.User;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 
 @SuppressWarnings("serial")
+@EqualsAndHashCode(callSuper=false)
 @Document
-@Getter 
-@Setter
+@Data
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserEntity extends User {
 	
 	@Id
