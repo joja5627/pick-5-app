@@ -1,0 +1,2 @@
+mail._domainkey.example.com example.com:mail:/etc/opendkim/keys/example.com/mail.private
+mail._domainkey.mail mail:mail:/etc/opendkim/keys/mail/mail.private

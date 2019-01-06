@@ -13,8 +13,10 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import io.pick5.user.domain.UserEntity;
 import io.pick5.user.repo.UserRepository;
 import io.pick5.user.utils.CheckUtil;
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
+@Slf4j
 @Component
 public class UserApiHandler {
 
@@ -38,8 +40,11 @@ public class UserApiHandler {
     }
 
     public Mono<ServerResponse> save(ServerRequest request) {
+    	
         Mono<UserEntity> userMono = request.bodyToMono(UserEntity.class);
-
+        
+       log.info(userMono.toString());
+       
         return userMono.flatMap(newUser -> {
             CheckUtil.checkName(newUser.getUsername());
 
@@ -60,7 +65,7 @@ public class UserApiHandler {
             return ok().contentType(APPLICATION_JSON_UTF8)
                     .body(userRepository.findById(id).flatMap(oldUser -> {
                         BeanUtils.copyProperties(updateUser, oldUser);
-                        oldUser.setId(id);
+                        oldUser.setMongoId(id);
 
                         return userRepository.save(oldUser);
                     }), UserEntity.class);

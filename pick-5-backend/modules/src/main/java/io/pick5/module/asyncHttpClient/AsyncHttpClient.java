@@ -6,11 +6,14 @@ import java.util.Map;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.server.EntityResponse;
 
 import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Slf4j
@@ -37,13 +40,59 @@ public class AsyncHttpClient {
 				.bodyToMono(clazz);
 	}
 
-	public <T> Mono<T> asyncRequest(String url, Class<T> clazz,HttpMethod method) {
-		return webClient.method(method)
-				.uri(url).retrieve()
-				.onStatus(HttpStatus::is4xxClientError, response -> Mono.error(getException(response)))
-				.onStatus(HttpStatus::is5xxServerError, response -> Mono.error(getException(response)))
-				.bodyToMono(clazz);
+	@SuppressWarnings("unchecked")
+	public <T> EntityResponse<Mono<T>> asyncRequest(String url, Class<T> clazz,HttpMethod method) {
+		
+		return (EntityResponse<Mono<T>>)
+					webClient.method(method)
+						.uri(url).retrieve()
+							.onStatus(HttpStatus::is4xxClientError, 
+								response -> Mono.error(getException(response)))
+									.onStatus(HttpStatus::is5xxServerError, 
+											response -> Mono.error(getException(response)))
+												.bodyToMono(clazz);
 	}
+//	
+//	WebClient.RequestHeadersSpec requestSpec1 = WebClient
+//			  .create()
+//			  .method(HttpMethod.POST)
+//			  .uri("/resource")
+//			  .body(BodyInserters.fromPublisher(Mono.just("data")), String.class);
+//			 
+//			WebClient.RequestHeadersSpec<?> requestSpec2 = WebClient
+//			  .create("http://localhost:8080")
+//			  .post()
+//			  .uri(URI.create("/resource"))
+//			  .body(BodyInserters.fromObject("data"));
+	@SuppressWarnings("unchecked")
+	public <T> EntityResponse<Mono<T>> asyncRequest(String url, Class<T> clazz,HttpMethod method,Object body) {
+		
+		return (EntityResponse<Mono<T>>)
+					webClient
+						.method(method)
+						.uri(url)
+						.body(BodyInserters.fromObject(body))
+						.retrieve()
+							.onStatus(HttpStatus::is4xxClientError, 
+								response -> Mono.error(getException(response)))
+									.onStatus(HttpStatus::is5xxServerError, 
+											response -> Mono.error(getException(response)))
+												.bodyToMono(clazz);
+	}
+	//.extract(WebResponseExtractors.response(String.class))
+	@SuppressWarnings("unchecked")
+	public <T> EntityResponse<Flux<T>> asyncRequestStream(String url, Class<T> clazz,HttpMethod method) {
+		
+		return (EntityResponse<Flux<T>>)
+					webClient.method(method)
+						.uri(url).retrieve()
+							.onStatus(HttpStatus::is4xxClientError,
+									response -> Mono.error(getException(response)))
+								.onStatus(HttpStatus::is5xxServerError,
+										response -> Mono.error(getException(response)))
+									.bodyToFlux(clazz);
+	}
+	
 
 	private RuntimeException getException(ClientResponse response) {
 		return new RuntimeException(

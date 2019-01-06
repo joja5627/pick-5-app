@@ -1,19 +1,12 @@
 import axios  from 'axios'
 export const REGISTER_USER = 'request/REGISTER_USER'
 
-//_FULFILLED
-//_FAILED
-//_PENDING
-
-
-
 const registrationSubmit = () => {
     return {
       type: `${REGISTER_USER}_PENDING`
     }
 };
 const registrationSubmitFulfilled = (parsed) => {
-    console.log('registrationSubmitFulfilled')
     return{
       type: `${REGISTER_USER}_FULFILLED`,
       payload: { parsed }
@@ -67,7 +60,7 @@ export const submitUserRegistration = subreddit => dispatch => {
     
     return axios({
         method: 'post',
-        url: `http://www.mocky.io/v2/5c27b1ad3000005f000bf76c`,
+        url: `http://registration-app/api/v1/register`,
         data: {
           email: 'Fred',
           password: 'Flintstone'

@@ -1,0 +1,13 @@
+apply plugin: 'application'
+apply plugin: 'java'
+
+mainClassName = 'io.pick5.email.EmailApplication'
+
+dependencies {
+    implementation project(':modules')
+    implementation('org.springframework.boot:spring-boot-starter-webflux',
+      		            'org.springframework.security:spring-security-core',
+                            "org.springframework.boot:spring-boot-starter-mail")
+    
+    
+}

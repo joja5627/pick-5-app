@@ -69,7 +69,7 @@ public class UserApiHandlerTest {
 		
 		UserEntity user = new UserEntity();
 		
-		user.setId(id);
+		user.setMongoId(id);
 		user.setEmail(email);
 		user.setUsername(userName);
 		user.setActive(true);
@@ -81,9 +81,8 @@ public class UserApiHandlerTest {
 	@SuppressWarnings("unchecked")
 	private void verifyEntitiesResponse(final ServerResponse serverResponse, List<UserEntity> users) {
 
-	        assertThat(serverResponse.statusCode(), is(HttpStatus.OK));
-	        
-	       
+	        assertThat(serverResponse.statusCode(), is(HttpStatus.OK)); 
+	      
 			final List<UserEntity> entitiesResponse = 
 	        		(List<UserEntity>) HandlersHelper.extractEntities(serverResponse, UserEntity.class);
 	        

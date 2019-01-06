@@ -5,10 +5,7 @@ mainClassName = 'io.pick5.user.UserApplication'
 
 dependencies {
     implementation project(':modules')
-    // compile "org.springframework.boot:spring-boot-starter"
-	// compile "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client"
-	// testCompile "org.springframework.boot:spring-boot-starter-test"
-
+  
 
     implementation('org.springframework.boot:spring-boot-starter-webflux',
       		                'org.springframework.security:spring-security-core',

@@ -2,13 +2,18 @@ package io.pick5.handlers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 import io.pick5.domain.ErrorResponse;
 import io.pick5.domain.PathNotFoundException;
+import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
+@Component
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ErrorHandler {
 
     private static final String NOT_FOUND = "not found";

@@ -1,5 +1,7 @@
 package io.pick5.user.domain;
 
+import java.util.UUID;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -21,5 +23,5 @@ import lombok.ToString;
 public class UserEntity extends User {
 	
 	@Id
-	private String id;
+	private String mongoId = UUID.randomUUID().toString();
 }
