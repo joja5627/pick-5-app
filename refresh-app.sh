@@ -2,20 +2,17 @@
 
 arr=( "$@" )
 
-cd ./pick-5-backend/
+
+function refresh_image (){
+    eval docker-compose stop "$1"
+    eval docker-compose rm -f "$1"
+    eval docker-compose up --build -d "$1"
+}
 
 for i in "${arr[@]}";
-    do 
-        eval ./gradlew :"$i":assemble 
+    do
+        cd ./pick-5-backend/
+        eval ./gradlew :"$i":assemble
+        cd ..
+        refresh_image "$i"
     done
-
-cd ../docker-compose/
-
-for i in "${arr[@]}";
-    do 
-        eval docker-compose stop "$i"
-        eval docker-compose rm -f "$i"
-        eval docker-compose up --build -d "$i"
-    done
-
-

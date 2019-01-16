@@ -10,7 +10,6 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.server.EntityResponse;
 
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
@@ -41,9 +40,9 @@ public class AsyncHttpClient {
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T> EntityResponse<Mono<T>> asyncRequest(String url, Class<T> clazz,HttpMethod method) {
+	public <T> Mono<T> asyncRequest(String url, Class<T> clazz,HttpMethod method) {
 		
-		return (EntityResponse<Mono<T>>)
+		return 
 					webClient.method(method)
 						.uri(url).retrieve()
 							.onStatus(HttpStatus::is4xxClientError, 
@@ -65,10 +64,9 @@ public class AsyncHttpClient {
 //			  .uri(URI.create("/resource"))
 //			  .body(BodyInserters.fromObject("data"));
 	@SuppressWarnings("unchecked")
-	public <T> EntityResponse<Mono<T>> asyncRequest(String url, Class<T> clazz,HttpMethod method,Object body) {
+	public <T> Mono<T> asyncRequest(String url, Class<T> clazz,HttpMethod method,Object body) {
 		
-		return (EntityResponse<Mono<T>>)
-					webClient
+		return webClient
 						.method(method)
 						.uri(url)
 						.body(BodyInserters.fromObject(body))
@@ -81,10 +79,9 @@ public class AsyncHttpClient {
 	}
 	//.extract(WebResponseExtractors.response(String.class))
 	@SuppressWarnings("unchecked")
-	public <T> EntityResponse<Flux<T>> asyncRequestStream(String url, Class<T> clazz,HttpMethod method) {
+	public <T> Flux<T> asyncRequestStream(String url, Class<T> clazz,HttpMethod method) {
 		
-		return (EntityResponse<Flux<T>>)
-					webClient.method(method)
+		return webClient.method(method)
 						.uri(url).retrieve()
 							.onStatus(HttpStatus::is4xxClientError,
 									response -> Mono.error(getException(response)))

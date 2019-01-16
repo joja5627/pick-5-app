@@ -1,11 +1,7 @@
 package io.pick5.domain;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,8 +20,8 @@ public class User {
 
     private String username;
     private String password;
-    private String email;
     private String confirmationCode;
+    private String email;
     
     @Builder.Default()
     private final String id = UUID.randomUUID().toString();
@@ -37,10 +33,10 @@ public class User {
     @Builder.Default()
     private List<String> roles = List.of();
 
-
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return AuthorityUtils.createAuthorityList(roles.toArray(new String[roles.size()]));
-    }
+//
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return AuthorityUtils.createAuthorityList(roles.toArray(new String[roles.size()]));
+//    }
 
 
     public boolean isAccountNonExpired() {

@@ -14,8 +14,8 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class EmailServiceProxyRetryable implements EmailService {
 
-	@Value("${routes.base.email.app}")
-	private static String EMAIL_APP_PATH;
+	@Value("${apps.email}")
+	private String EMAIL_APP_PATH;
 	
 	@Autowired
 	AsyncHttpClient asyncHttpClient;
@@ -23,7 +23,7 @@ public class EmailServiceProxyRetryable implements EmailService {
 	
 	public Mono<User> sendConfirmationEmail(Mono<User> newUser){
 		return asyncHttpClient
-				.asyncRequest(EMAIL_APP_PATH, User.class, HttpMethod.POST).entity();
+				.asyncRequest(EMAIL_APP_PATH, User.class, HttpMethod.POST);
 		
 	}
 }

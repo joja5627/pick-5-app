@@ -1,3 +1,0 @@
-mail._domainkey	IN	TXT	( "v=DKIM1; h=sha256; k=rsa; "
-	  "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzeNxTGWmZ/92qoI6YqkqOxOSk4w2Z7TchwyeFYIkBD8gOCNDjx+s0Uw9bvWQrgfpAXJumP5asqEjY16wlfX5U69ONO6Yk5m/qglSY4qgEkOQqPpYiIMUi5FvjH3d19nWf3+LcAZagx0cSFnFGMRiDsbD2R2AAKfiqCvtlc06ibqhiKnKwzQd5NnJZl1bySKq2hxo3GD0NOb1q8"
-	  "BdWYK6Duu5wuStrAsPAkVaIt1MZ+rHobDB6fKTafkDgcINvHy1pPUvs0BIzn6uz23JOZLfw6jN+4H5yIOavyKDhQuvveavtL0jSPSzgGIbxLajzdo2pGELjG0ZGEpmOIPmcGFavwIDAQAB" )  ; ----- DKIM key mail for mail

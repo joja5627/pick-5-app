@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: registration-app
+    
+apps:
+  email:
+    "api/v1/email-app" 
+  user: 
+    "api/v1/user-app"
+
+server:
+  port: 8080
+  
+version:
+  "/api/v1"
+  
+routes:
+  register:
+    "/register"
