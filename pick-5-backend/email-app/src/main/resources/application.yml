@@ -25,13 +25,13 @@ spring:
                           true
                 
   management:
-        endpoint:
+    endpoint:
             health:
-                show-details: always
+              show-details: always
   endpoints:
         web:
-            exposure:
-                include: '*'
+          exposure:
+            include: '*'
   data:
         mongodb:
             port:

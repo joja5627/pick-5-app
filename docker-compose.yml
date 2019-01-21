@@ -6,19 +6,6 @@ version: '3.5'
 #docker system prune -a
 #docker-compose build
 services:
-  # nginx:
-  #   build: ./nginx
-  #   volumes_from:
-  #     - pick-5-frontend
-  #   links:
-  #     - pick-5-frontend
-  #   ports:
-  #     - "80:80"
-  #   depends_on:
-  #     - pick-5-frontend
-  #   networks:
-  #     - pick-5-network
-
   nginx:
    container_name: some-nginx
    image: nginx:1.13
@@ -30,8 +17,6 @@ services:
     - ./nginx/conf.d:/etc/nginx/conf.d
    networks:
     - pick-5-network
-
- 
   pick-5-frontend:
     container_name: pick-5-frontend
     build: ./pick-5-frontend
@@ -47,8 +32,7 @@ services:
       - PORT=3000
     networks:
       - pick-5-network
-    
-
+      
   registration-app:
     build: ./pick-5-backend/registration-app
     image: registration-app
