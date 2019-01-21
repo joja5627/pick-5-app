@@ -53,13 +53,15 @@ services:
     build: ./pick-5-backend/registration-app
     image: registration-app
     ports:
-      - '8003'
+      - "8003:8003"
     networks:
         - pick-5-network
   
   user-app:
     build: ./pick-5-backend/user-app
     image: user-app
+    ports:
+      - "8002:8002"
     networks:
         - pick-5-network
 
@@ -71,13 +73,13 @@ services:
   #   networks:
   #       - pick-5-network
 
-  # email-app:
-  #   build: ./pick-5-backend/email-app
-  #   image: email-app
-  #   ports:
-  #     - "8084:8084"
-  #   networks:
-  #       - pick-5-network
+  email-app:
+    build: ./pick-5-backend/email-app
+    image: email-app
+    ports:
+      - "8004:8004"
+    networks:
+        - pick-5-network
 
   mongo:
     image: mongo:3.5
@@ -89,22 +91,22 @@ services:
       - mongodb:/data/db
     networks:
       - pick-5-network
-    depends_on:
-     - "redis"
+    # depends_on:
+    #  - "redis"
 
-  redis:
-    image: redis:4.0.5-alpine
-    hostname: redis
-    command: ["redis-server", "--appendonly", "yes"]
-    ports:
-      - "6379:6379"
-    volumes:
-      - redisdb
-    networks:
-      - pick-5-network
+  # redis:
+  #   image: redis:4.0.5-alpine
+  #   hostname: redis
+  #   command: ["redis-server", "--appendonly", "yes"]
+  #   ports:
+  #     - "6379:6379"
+  #   volumes:
+  #     - redisdb
+  #   networks:
+  #     - pick-5-network
 volumes:
   mongodb:
-  redisdb:
+  # redisdb:
 
 networks:
   pick-5-network:

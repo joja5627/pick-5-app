@@ -5,11 +5,8 @@ mainClassName = 'io.pick5.registration.RegistrationApplication'
 
 dependencies {
     implementation project(':modules')
-        
+    implementation('org.springframework.boot:spring-boot-starter-actuator')
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
-    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
-    
-   	testCompile "de.flapdoodle.embed:de.flapdoodle.embed.mongo"
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('io.projectreactor:reactor-test')
       

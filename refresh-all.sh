@@ -2,8 +2,9 @@
 
 filename="./pick-5-backend/settings.gradle"
 
-eval docker-compose stop 
-eval docker-compose up -d mongo 
+eval docker-compose stop
+eval docker-compose up -d --build nginx 
+eval docker-compose up -d --build mongo 
 
 arr=($(grep 'app'  $filename | awk '{print $2}'))
 

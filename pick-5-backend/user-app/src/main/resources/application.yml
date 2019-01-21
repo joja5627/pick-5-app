@@ -1,11 +1,14 @@
+server:
+  port: 8002
 spring:
   application:
     name: user-app
   data:
     mongodb:
-     host: localhost
+     host: mongo
      port: 27017
 
+  
 logging:
   level:
     org.springframework.security: INFO

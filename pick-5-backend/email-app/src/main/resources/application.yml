@@ -1,0 +1,57 @@
+server:
+  port: 8004
+spring:
+  application:
+    name: email-app
+  mail: 
+      host:
+          smtp.gmail.com
+      port:
+            587
+      username:
+            emailpickfive
+      password:
+            Cu112145@b
+      protocol: 
+          smtp
+
+      properties:
+          mail:
+              smtp:
+                  auth:
+                      true
+                  starttls:
+                      enable:
+                          true
+                
+  management:
+        endpoint:
+            health:
+                show-details: always
+  endpoints:
+        web:
+            exposure:
+                include: '*'
+  data:
+        mongodb:
+            port:
+                27107
+            host:
+                localhost
+email: 
+  from: 
+    emailpickfive@gmail.com
+    
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          INFO
+          
+version:
+     "/api/v1"
+
+path:
+  email: 
+     ${version}/email/

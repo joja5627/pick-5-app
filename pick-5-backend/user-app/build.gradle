@@ -4,8 +4,16 @@ apply plugin: 'java'
 mainClassName = 'io.pick5.user.UserApplication'
 
 // curl http://localhost:8003/api/v1/user/save --header "Content-Type: application/json;charset=UTF-8" --request POST  --data '{"username":"username","password":"password"}'
+// curl http://user-app/api/v1/user/save --header "Content-Type: application/json;charset=UTF-8" --request POST  --data '{"username":"username","password":"password"}'
 
+// curl http://registration-app/api/v1/register/ --header "Content-Type: application/json;charset=UTF-8" --request POST  --data '{"username":"joja5627","password":"Cu112145@b","email":"joja5627@gmail.com"}'
 /*
+
+curl http://localhost:80/registration-app/api/v1/register -H  "accept: application/json" -H  "content-type: application/json" --request POST  --data '{"username":"joja5627","password":"Cu112145@b","email":"joja5627@gmail.com"}'
+
+curl http://localhost:80/user-app/api/v1/get_all -H  "accept: application/json" --request GET 
+
+
  user-app/Dockerfile
 	deleted:    user-app/README.md
 	modified:   user-app/build.gradle
@@ -21,7 +29,7 @@ $ curl -X GET "http://localhost:8080/user/find_all
 
 Post from JSON
 ```shell
-$ curl -X POST "http://localhost:8003/api/location" -H  "accept: application/json" -H  "content-type: application/json" -d "{  \"address\": \"Trafalgar Square, London, England\"}"
+$ curl -X POST "http://localhost:8003/api/v1/register/" -H  "accept: application/json" -H  "content-type: application/json" --data '{"username":"joja5627","password":"Cu112145@b","email":"joja5627@gmail.com"}'
 
  */
 
@@ -34,10 +42,10 @@ dependencies {
         
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator' 
     
-   	testCompile "de.flapdoodle.embed:de.flapdoodle.embed.mongo"
-	testCompile('org.springframework.boot:spring-boot-starter-test')
-	testCompile('io.projectreactor:reactor-test')
+	testCompile('org.springframework.boot:spring-boot-starter-test',
+    'de.flapdoodle.embed:de.flapdoodle.embed.mongo','io.projectreactor:reactor-test')
       
     
 }

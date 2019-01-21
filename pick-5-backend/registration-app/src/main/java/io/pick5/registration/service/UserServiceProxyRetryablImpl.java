@@ -8,31 +8,20 @@ import org.springframework.stereotype.Service;
 import io.pick5.domain.User;
 import io.pick5.module.asyncHttpClient.AsyncHttpClient;
 import lombok.RequiredArgsConstructor;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserServiceProxyRetryablImpl implements UserService {
 
-	
-	@Value("${apps.user}")
-	private String USER_APP_PATH;
+	@Value("${app.path.user-save}")
+	private String SAVE_USER_PATH;
 	
 	@Autowired
 	AsyncHttpClient asyncHttpClient;
-		
 	
-	public Flux<User> getCurrentUsers(){
+	public Mono<User> saveNewUser(final Mono<User> newUser){
 		return asyncHttpClient
-					.asyncRequestStream(USER_APP_PATH, User.class, HttpMethod.GET);
+					.asyncRequest(SAVE_USER_PATH, User.class, HttpMethod.POST,newUser);
 	}
-	
-	public Mono<User> updateUserConfirmationCode(final Mono<User> newUser){
-
-		return asyncHttpClient
-			.asyncRequest(USER_APP_PATH, User.class, HttpMethod.POST,newUser);
-
-	}
-	
 }

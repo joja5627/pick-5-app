@@ -1,19 +1,28 @@
+server:
+  port: 8003
+
 spring:
   application:
     name: registration-app
-    
-apps:
-  email:
-    "api/v1/email-app" 
-  user: 
-    "api/v1/user-app"
+  management:
+        endpoint:
+            health:
+                show-details: always
+  endpoints:
+        web:
+            exposure:
+                include: '*'
 
-server:
-  port: 8080
-  
 version:
   "/api/v1"
-  
+
+app:
+  path: 
+    email-send:
+      "email-app/${version}/email/" 
+    user-save: 
+      "user-app/${version}/user/save/"
+
 routes:
   register:
-    "/register"
+    "${version}/register"
