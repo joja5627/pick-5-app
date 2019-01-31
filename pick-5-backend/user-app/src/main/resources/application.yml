@@ -1,0 +1,39 @@
+server:
+  port: 8002
+  
+spring:
+  application:
+    name: user-app
+  data:
+    mongodb:
+     host: mongo
+     port: 27017
+  management:
+    endpoint:
+      health:
+        show-details: always
+  endpoints:
+        web:
+          exposure:
+            include: '*'
+
+  
+logging:
+  level:
+    org.springframework.security: INFO
+    
+version:
+     "/api/v1"
+
+path:
+  users: 
+     ${version}/users/
+  user: 
+     ${version}/user/
+  save:
+     ${version}/user/save
+  userById:
+     ${version}/user/{id}
+
+  get_all:
+      ${version}/user/get_all

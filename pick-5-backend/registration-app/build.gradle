@@ -1,0 +1,13 @@
+apply plugin: 'application'
+apply plugin: 'java'
+
+mainClassName = 'io.pick5.registration.RegistrationApplication'
+
+dependencies {
+    implementation project(':modules')
+    implementation('org.springframework.boot:spring-boot-starter-actuator')
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile('io.projectreactor:reactor-test')
+      
+}

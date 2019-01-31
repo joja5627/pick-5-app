@@ -1,0 +1,30 @@
+server:
+  port: 8003
+
+spring:
+  application:
+    name: registration.app
+  management:
+        endpoint:
+            health:
+                show-details: always
+  endpoints:
+        web:
+            exposure:
+                include: '*'
+
+version:
+  "/api/v1"
+
+app:
+  path: 
+    email-send:
+      "http://localhost/email-app${version}/email" 
+      #"http://localhost:8004${version}/email" 
+    user-save:
+      "http://localhost/user-app${version}/user/save/" 
+      #"http://localhost:8002/user-app${version}/user/save/"
+
+routes:
+  register:
+    "${version}/register"

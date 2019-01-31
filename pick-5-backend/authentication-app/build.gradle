@@ -1,8 +1,7 @@
 apply plugin: 'application'
 	
 apply plugin: 'java'
-// pick-5-modules/pick-5-auth-service/src/main/java/io/pick5/auth/AuthenticationApplication.java
-mainClassName = 'shuaicj.example.security.auth.Application'
+mainClassName = 'io.pick5.authentication.AuthenticationApplication'
 
 //curl -X POST  http://localhost:8080/authorize  -H "Accept: application/json" -d
 // curl http://localhost:8080/authorize --header "Content-Type: application/json" --request POST  --data '{"username":"username","password":"password"}' 
@@ -11,17 +10,18 @@ mainClassName = 'shuaicj.example.security.auth.Application'
 dependencies {
     implementation project(':modules')
 
-    // compile('org.springframework.boot:spring-boot-starter-actuator')
-    // compile "org.springframework.boot:spring-boot-starter"
-	// compile "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client"
-	// testCompile "org.springframework.boot:spring-boot-starter-test"
-
-
-    implementation("org.springframework.boot:spring-boot-starter-actuator",
+    implementation(
+        "org.springframework.boot:spring-boot-starter-data-redis-reactive","org.springframework.boot:spring-boot-starter-actuator",
                         "org.springframework.boot:spring-boot-starter-web",
                              "org.springframework.boot:spring-boot-devtools",
                                 "javax.xml.bind:jaxb-api:2.3.0")
 
+implementation "org.springframework.boot:spring-boot-starter-web"
+implementation "org.springframework.boot:spring-boot-starter-security"
+implementation "org.springframework.session:spring-session-core"
+implementation "org.springframework.session:spring-session-data-redis"
+implementation "org.springframework.boot:spring-boot-starter-data-redis"
+testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     implementation(
       				'org.springframework.boot:spring-boot-starter-security',
@@ -29,6 +29,9 @@ dependencies {
       						'org.springframework.security:spring-security-core',
       							'org.springframework.security:spring-security-config'
       								)
-                                      //'org.springframework.boot:spring-boot-starter-webflux'
+testCompile "com.github.tomakehurst:wiremock:2.20.0"
+
+testCompile('org.springframework.boot:spring-boot-starter-test', 'io.projectreactor:reactor-test')
+     
 }
 

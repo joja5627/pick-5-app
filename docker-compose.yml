@@ -1,4 +1,4 @@
-version: '3'
+version: '3.5'
 #remove all images
 #docker rm $(docker ps -aq)
 #docker stop $(docker ps -aq)
@@ -6,48 +6,72 @@ version: '3'
 #docker system prune -a
 #docker-compose build
 services:
-  zuul-server:
-    build: ./pick-5-backend/zuul-server
-    image: zuul-server
-    depends_on:
-     - eureka-server
+
+
+  nginx:
+   container_name: some-nginx
+   image: nginx:1.13
+   restart: always
+   ports:
+    - 80:80
+    - 443:443
+   volumes:
+    - ./nginx/conf.d:/etc/nginx/conf.d
+   networks:
+    - pick-5-network
+
+ 
+  pick-5-frontend:
+    container_name: pick-5-frontend
+    build: ./pick-5-frontend
+    image: pick-5-frontend
+    volumes:
+      - '.:/usr/src/app'
+      - '/usr/src/app/node_modules'
     ports:
-      - "8080:8080"
+      - '3000:3000'
+    environment:
+      - NODE_ENV=production
+      - VIRTUAL_PORT=3000
+      - PORT=3000
+    networks:
+      - pick-5-network
+    
+
+  registration-app:
+    build: ./pick-5-backend/registration-app
+    image: registration-app
+    ports:
+      - "8003:8003"
     networks:
         - pick-5-network
-  eureka-server:
-    build: ./pick-5-backend/eureka-server
-    image: eureka-server
-    ports:
-      - "8761:8761"
-    networks:
-        - pick-5-network
-  authentication-app:
-    build: ./pick-5-backend/authentication-app
-    image: authentication-app
-    depends_on:
-     - eureka-server
-    deploy:
-      mode: replicated
-      replicas: 1
-    ports:
-      - "8081:8081"
-    networks:
-        - pick-5-network
+  
   user-app:
     build: ./pick-5-backend/user-app
     image: user-app
-    depends_on:
-     - eureka-server
-    deploy:
-      mode: replicated
-      replicas: 1
     ports:
-      - "8082:8082"
+      - "8002:8002"
     networks:
         - pick-5-network
+
+  authentication-app:
+    build: ./pick-5-backend/authentication-app
+    image: authentication-app
+    ports:
+      - 8000:8000
+    networks:
+        - pick-5-network
+
+  email-app:
+    build: ./pick-5-backend/email-app
+    image: email-app
+    ports:
+      - "8004:8004"
+    networks:
+        - pick-5-network
+
   mongo:
-    image: mongo:3.4
+    image: mongo:3.5
     hostname: mongo
     command: []
     ports:
@@ -56,8 +80,8 @@ services:
       - mongodb:/data/db
     networks:
       - pick-5-network
-    depends_on:
-     - "redis"
+    # depends_on:
+    #  - "redis"
 
   redis:
     image: redis:4.0.5-alpine
@@ -71,7 +95,7 @@ services:
       - pick-5-network
 volumes:
   mongodb:
-  redisdb:
+  # redisdb:
 
 networks:
   pick-5-network:

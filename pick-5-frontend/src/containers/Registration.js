@@ -49,6 +49,7 @@ class Registration extends Component {
   handleSubmit = async event => {
     event.preventDefault();
     const userInfo = {
+        username: this.state.username,
         email : this.state.email,
         password : this.state.password
     }
@@ -62,10 +63,10 @@ class Registration extends Component {
     //     username: this.state.email,
     //     password: this.state.password
     //   });
-    const newUser = {email:'email',password:'password '}
-      this.setState({
-        newUser
-      });
+    // const newUser = {email:'email',password:'password '}
+    //   this.setState({
+    //     newUser
+    //   });
     } catch (e) {
       alert(e.message);
     }

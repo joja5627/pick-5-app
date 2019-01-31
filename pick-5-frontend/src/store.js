@@ -18,11 +18,11 @@ if (process.env.NODE_ENV === 'development') {
   }
 }
 // Enable Chrome Redux DevTools if browser and dev
-if (typeof window === 'object' && process.env.NODE_ENV === 'development') {
-    enhancers.push(
-      window.devToolsExtension ? window.devToolsExtension() : f => f
-    );
-  }
+// if (typeof window === 'object' && process.env.NODE_ENV === 'development') {
+//     enhancers.push(
+//       window.devToolsExtension ? window.devToolsExtension() : f => f
+//     );
+//   }
 
 const composedEnhancers = compose(
   applyMiddleware(...middleware),

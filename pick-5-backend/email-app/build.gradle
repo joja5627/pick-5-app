@@ -1,0 +1,21 @@
+apply plugin: 'application'
+apply plugin: 'java'
+
+mainClassName = 'io.pick5.email.EmailApplication'
+
+dependencies {
+
+//// 
+//curl  -H "Accept: application/json;charset=UTF-8" -H "Content-Type: application/json;charset=UTF-8"  --request POST 
+//curl --request POST  -i -H "Application/json" -H "Content-type: application/json"  "http://localhost:8080/api/v1/email" --data '{"username":"username","password":"password","email":"joja5627@gmail.com","confirmationCode":"123456789"}'
+
+    implementation project(':modules')
+    
+    implementation("org.springframework.boot:spring-boot-starter-mail")
+    
+   	compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile('org.springframework.boot:spring-boot-starter-webflux')
+    
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile('io.projectreactor:reactor-test')
+}

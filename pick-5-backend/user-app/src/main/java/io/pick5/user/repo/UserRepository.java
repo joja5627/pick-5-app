@@ -1,16 +1,17 @@
 package io.pick5.user.repo;
 
+import java.util.Optional;
+
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
 
-import io.pick5.user.domain.UserEntity;
+import io.pick5.domain.User;
 
 
 @Repository
-public interface UserRepository extends ReactiveMongoRepository<UserEntity, String> {
+public interface UserRepository extends ReactiveMongoRepository<User, String> {
+    public Optional<User> findByUsername(String username);
 
-//    Flux<UserEntity> findByAgeBetween(int start, int end);
+    public Optional<User> findByEmail(String email);
 
-//    @Query("{'age':{'$gte':20,'$lte':45}}")
-//    Flux<UserEntity> oldUser();
 }
