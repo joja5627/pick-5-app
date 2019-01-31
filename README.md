@@ -1,11 +1,10 @@
 
 Microservice Based Example Project
 ----------------------------------
-Backend Stack: 
-    Java Webflux
+Backend: Java Webflux
 
-Frontend Stack: http://localhost:3000
-    React/NodeJs
+Frontend: React/NodeJs
+- http://localhost:3000
 
 Start All Services
 -> docker-compose up
