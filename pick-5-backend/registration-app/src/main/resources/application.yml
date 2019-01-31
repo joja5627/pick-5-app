@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: registration-app
+    name: registration.app
   management:
         endpoint:
             health:
@@ -19,9 +19,11 @@ version:
 app:
   path: 
     email-send:
-      "email-app/${version}/email/" 
-    user-save: 
-      "user-app/${version}/user/save/"
+      "http://localhost/email-app${version}/email" 
+      #"http://localhost:8004${version}/email" 
+    user-save:
+      "http://localhost/user-app${version}/user/save/" 
+      #"http://localhost:8002/user-app${version}/user/save/"
 
 routes:
   register:

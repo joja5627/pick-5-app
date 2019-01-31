@@ -56,11 +56,14 @@ public class RegistrationHandler {
 	        Mono<User> newUser = serverRequest.body(toMono(User.class));
 	        
 	        return newUser
-	        	.transform(this::addConfirmationCode)
-	        		.transform(userServiceProxyRetryableImpl::saveNewUser)
-//	        			.transform(emailServiceProxyRetryableImpl::sendConfirmationEmail)
-	        				.transform(this::okResponse)
-	        					.onErrorResume(this::errorResponse);
+		        	.transform(this::addConfirmationCode)
+		        		.transform(emailServiceProxyRetryableImpl::sendConfirmationEmail)
+		        			.log("userServiceProxyRetryableImpl::sendConfirmationEmail::")
+		        				.transform(this::okResponse)
+		        					.onErrorResume(this::errorResponse);
+//	        		.transform(userServiceProxyRetryableImpl::saveNewUser)
+//	        			.log("userServiceProxyRetryableImpl::saveNewUser::OK")
+	        			
 	        								
 	    }
 }

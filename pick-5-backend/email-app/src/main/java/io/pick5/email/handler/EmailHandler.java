@@ -23,7 +23,6 @@ public class EmailHandler {
 	private final EmailServiceImpl emailService;
 	
 	 private Mono<ServerResponse> send(User user){
-		 	log.info(String.format("Sending Confirmation Email for %s @ %s",user.getUsername(),user.getEmail()));
 				try {
 					emailService.buildAndSendEmail(user);
 				}catch(Exception e) {
@@ -32,6 +31,9 @@ public class EmailHandler {
 		    				.status(HttpStatus.INTERNAL_SERVER_ERROR)
 		    					.build();
 				}
+				
+			 	log.info(String.format("Confirmation Email Sent for %s @ %s",user.getUsername(),user.getEmail()));
+
 				return ServerResponse.ok().build();
 			}
 	 

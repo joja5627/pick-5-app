@@ -4,13 +4,16 @@ apply plugin: 'java'
 mainClassName = 'io.pick5.user.UserApplication'
 dependencies {
     implementation project(':modules')
-        
+
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
     implementation 'org.springframework.boot:spring-boot-starter-actuator' 
 
-	testCompile('org.springframework.boot:spring-boot-starter-test',
-    'de.flapdoodle.embed:de.flapdoodle.embed.mongo','io.projectreactor:reactor-test')
-      
-    
+	testCompile(
+        'org.springframework.boot:spring-boot-starter-test',
+            'de.flapdoodle.embed:de.flapdoodle.embed.mongo',
+                'io.projectreactor:reactor-test')
+
 }
+
+

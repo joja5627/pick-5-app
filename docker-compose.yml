@@ -6,6 +6,8 @@ version: '3.5'
 #docker system prune -a
 #docker-compose build
 services:
+
+
   nginx:
    container_name: some-nginx
    image: nginx:1.13
@@ -17,6 +19,8 @@ services:
     - ./nginx/conf.d:/etc/nginx/conf.d
    networks:
     - pick-5-network
+
+ 
   pick-5-frontend:
     container_name: pick-5-frontend
     build: ./pick-5-frontend
@@ -32,7 +36,8 @@ services:
       - PORT=3000
     networks:
       - pick-5-network
-      
+    
+
   registration-app:
     build: ./pick-5-backend/registration-app
     image: registration-app
@@ -49,13 +54,13 @@ services:
     networks:
         - pick-5-network
 
-  # authentication-app:
-  #   build: ./pick-5-backend/authentication-app
-  #   image: authentication-app
-  #   ports:
-  #     - 8081:8081
-  #   networks:
-  #       - pick-5-network
+  authentication-app:
+    build: ./pick-5-backend/authentication-app
+    image: authentication-app
+    ports:
+      - 8000:8000
+    networks:
+        - pick-5-network
 
   email-app:
     build: ./pick-5-backend/email-app
@@ -78,16 +83,16 @@ services:
     # depends_on:
     #  - "redis"
 
-  # redis:
-  #   image: redis:4.0.5-alpine
-  #   hostname: redis
-  #   command: ["redis-server", "--appendonly", "yes"]
-  #   ports:
-  #     - "6379:6379"
-  #   volumes:
-  #     - redisdb
-  #   networks:
-  #     - pick-5-network
+  redis:
+    image: redis:4.0.5-alpine
+    hostname: redis
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdb
+    networks:
+      - pick-5-network
 volumes:
   mongodb:
   # redisdb:

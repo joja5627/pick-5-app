@@ -1,8 +1,9 @@
 server:
   port: 8004
+
 spring:
   application:
-    name: email-app
+    name: email.app
   mail: 
       host:
           smtp.gmail.com
@@ -41,7 +42,7 @@ spring:
 email: 
   from: 
     emailpickfive@gmail.com
-    
+#https://dzone.com/articles/a-developmentdeployment-setup-for-an-angular-sprin
 logging:
   level:
     org:
@@ -54,4 +55,4 @@ version:
 
 path:
   email: 
-     ${version}/email/
+     ${version}/email

@@ -27,4 +27,8 @@ public class RegistrationRouter {
 		return route(POST(REGISTER_ROUTE)
 				.and(accept(MediaType.APPLICATION_JSON_UTF8)), registrationHandler::registerUser);
 	}
+	
+	
+	
+	
 }

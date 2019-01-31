@@ -21,6 +21,7 @@ public class UserServiceProxyRetryablImpl implements UserService {
 	AsyncHttpClient asyncHttpClient;
 	
 	public Mono<User> saveNewUser(final Mono<User> newUser){
+	
 		return asyncHttpClient
 					.asyncRequest(SAVE_USER_PATH, User.class, HttpMethod.POST,newUser);
 	}

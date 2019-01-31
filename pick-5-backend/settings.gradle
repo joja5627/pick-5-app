@@ -5,6 +5,7 @@ include ':security-modules'
 
 include ':registration-app'
 include ':user-app'
-include ':email-app'
+include ':authentication-app'
+include  ':email-app'
 
 

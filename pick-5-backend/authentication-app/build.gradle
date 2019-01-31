@@ -10,11 +10,18 @@ mainClassName = 'io.pick5.authentication.AuthenticationApplication'
 dependencies {
     implementation project(':modules')
 
-    implementation("org.springframework.boot:spring-boot-starter-actuator",
+    implementation(
+        "org.springframework.boot:spring-boot-starter-data-redis-reactive","org.springframework.boot:spring-boot-starter-actuator",
                         "org.springframework.boot:spring-boot-starter-web",
                              "org.springframework.boot:spring-boot-devtools",
                                 "javax.xml.bind:jaxb-api:2.3.0")
 
+implementation "org.springframework.boot:spring-boot-starter-web"
+implementation "org.springframework.boot:spring-boot-starter-security"
+implementation "org.springframework.session:spring-session-core"
+implementation "org.springframework.session:spring-session-data-redis"
+implementation "org.springframework.boot:spring-boot-starter-data-redis"
+testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     implementation(
       				'org.springframework.boot:spring-boot-starter-security',
@@ -22,5 +29,9 @@ dependencies {
       						'org.springframework.security:spring-security-core',
       							'org.springframework.security:spring-security-config'
       								)
+testCompile "com.github.tomakehurst:wiremock:2.20.0"
+
+testCompile('org.springframework.boot:spring-boot-starter-test', 'io.projectreactor:reactor-test')
+     
 }
 

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.ClientResponse;
@@ -39,18 +40,19 @@ public class AsyncHttpClient {
 				.bodyToMono(clazz);
 	}
 
-	@SuppressWarnings("unchecked")
-	public <T> Mono<T> asyncRequest(String url, Class<T> clazz,HttpMethod method) {
-		
-		return 
-					webClient.method(method)
-						.uri(url).retrieve()
-							.onStatus(HttpStatus::is4xxClientError, 
-								response -> Mono.error(getException(response)))
-									.onStatus(HttpStatus::is5xxServerError, 
-											response -> Mono.error(getException(response)))
-												.bodyToMono(clazz);
-	}
+//	@SuppressWarnings("unchecked")
+//	public <T> Mono<T> asyncRequest(String url, Class<T> clazz,HttpMethod method,Object body) {
+//		
+//		return 
+//					webClient.method(method)
+//						.uri(url)
+//							.body(BodyInserters.fromObject(body),clazz).retrieve()
+//							.onStatus(HttpStatus::is4xxClientError, 
+//								response -> Mono.error(getException(response)))
+//									.onStatus(HttpStatus::is5xxServerError, 
+//											response -> Mono.error(getException(response)))
+//												.bodyToMono(clazz);
+//	}
 //	
 //	WebClient.RequestHeadersSpec requestSpec1 = WebClient
 //			  .create()
@@ -65,17 +67,22 @@ public class AsyncHttpClient {
 //			  .body(BodyInserters.fromObject("data"));
 	@SuppressWarnings("unchecked")
 	public <T> Mono<T> asyncRequest(String url, Class<T> clazz,HttpMethod method,Object body) {
-		
+		log.info(" ===== URL =====");
+		log.info(url);
+		log.info(" ===== BODY =====");
+		log.info(body.toString());
 		return webClient
-						.method(method)
-						.uri(url)
-						.body(BodyInserters.fromObject(body))
-						.retrieve()
-							.onStatus(HttpStatus::is4xxClientError, 
-								response -> Mono.error(getException(response)))
-									.onStatus(HttpStatus::is5xxServerError, 
-											response -> Mono.error(getException(response)))
-												.bodyToMono(clazz);
+				.method(method)
+				.uri(url)
+					.contentType(MediaType.APPLICATION_JSON_UTF8)
+			    		.accept(MediaType.APPLICATION_JSON_UTF8)
+								.body(BodyInserters.fromObject(body))
+									.retrieve()
+										.onStatus(HttpStatus::is4xxClientError, 
+												response -> Mono.error(getException(response)))
+										.onStatus(HttpStatus::is5xxServerError, 
+												response -> Mono.error(getException(response)))
+										.bodyToMono(clazz);
 	}
 	//.extract(WebResponseExtractors.response(String.class))
 	@SuppressWarnings("unchecked")
